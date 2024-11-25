@@ -9,7 +9,7 @@ function randomNumber($array)
     return $array[array_rand($array)];
 }
 
-$numbers = [1, 2, 3, 4, 5, 6];
+$numbers = [1, 2, 3, 4, 5, 6, 7];
 
 $numbers2 = [];
 
