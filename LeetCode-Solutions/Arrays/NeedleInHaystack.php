@@ -1,24 +1,30 @@
 <?php
-
 class Solution {
 
-/**
- * @param String $haystack
- * @param String $needle
- * @return Integer
- */
-function strStr($haystack, $needle) {
-    $needleLength = strlen($needle);
-    $haystackLength = strlen($haystack);
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return int
+     */              
+    function strStr($haystack, $needle) {
+        $needleLength = strlen($needle);
+        $haystackLength = strlen($haystack);
 
-    for ($i = 0; $i <= $haystackLength - $needleLength; $i++) {
-        if (substr($haystack, $i, $needleLength) === $needle) {
-            return $i;
+        for ($i = 0; $i <= $haystackLength - $needleLength; $i++) {
+            $found = true;
+            for ($j = 0; $j < $needleLength; $j++) {
+                if ($haystack[$i + $j] !== $needle[$j]) {
+                    $found = false;
+                    break;
+                }
+            }
+            if ($found) {
+                return $i;
+            }
         }
-    }
 
-    return -1;
-}
+        return -1;
+    }
 }
 
 
@@ -50,18 +56,19 @@ function strStr($haystack, $needle) {
 
 // Initialization:
 
-// $needleLength: Stores the length of the $needle string.
-// $haystackLength: Stores the length of the $haystack string.
-// Iteration:
+// Same as before: Calculate $needleLength and $haystackLength.
+// Outer Loop:
 
-// The for loop iterates through the $haystack string.
-// It starts from index 0 and continues until $i reaches $haystackLength - $needleLength. This ensures that we don't go out of bounds when checking for substrings.
-// Substring Check:
+// The outer loop (for ($i = 0; ...) iterates through the $haystack string, checking for potential starting positions of the $needle.
+// Inner Loop:
 
-// substr($haystack, $i, $needleLength) extracts a substring of $haystack starting at index $i and with a length of $needleLength.
-// If this extracted substring is equal to the $needle string, it means we found the first occurrence.
-// In this case, the function returns the current index $i.
+// The inner loop (for ($j = 0; ...) compares individual characters of the $needle with the corresponding characters in the $haystack.
+// If a mismatch is found, the $found flag is set to false, and the inner loop breaks.
+// Match Found:
+
+// If the inner loop completes without finding any mismatches ($found remains true), it means a match has been found.
+// The function returns the starting index $i.
 // No Match:
 
-// If the loop completes without finding a match, the function returns -1 to indicate that $needle is not found in $haystack.
-// This solution efficiently finds the index of the first occurrence of $needle in $haystack by iterating through the $haystack string and checking for substrings that match $needle.
+// If the outer loop completes without finding any matches, the function returns -1.
+// This approach avoids the use of the substr() function and directly compares individual characters within the nested loops. This is a more fundamental and language-agnostic way to implement the string search algorithm.
